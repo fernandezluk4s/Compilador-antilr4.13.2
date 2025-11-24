@@ -1,4 +1,4 @@
-## 📄 LinguagemA com antilr4.13.2
+## 📄 LinguagemA com antlr4.13.2
 
 ### 🚀 Visão Geral
 
