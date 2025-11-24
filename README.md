@@ -25,15 +25,15 @@ grammar LinguagemA;
 
 prog:   stat+ ;
 
-stat:   'if' '(' expr ')' 'then' stat ('else' stat)?  #IfStat
-    |   'while' '(' expr ')' 'do' stat                 #WhileStat
-    |   'for' '(' assignment? ';' expr? ';' assignment? ')' stat #ForStat
-    |   'const' type ID '=' expr ';'                   #ConstDecl
-    |   type ID ('=' expr)? ';'                        #VarDecl
-    |   type ID '[' INT ']' ';'                        #ArrayDecl
-    |   assignment ';'                                 #AssignStat
-    |   'print' '(' expr ')' ';'                       #Print
-    |   '{' stat* '}'                                  #Block
+stat:   'if' '(' expr ')' 'then' stat ('else' stat)?                #IfStat
+    |   'while' '(' expr ')' 'do' stat                              #WhileStat
+    |   'for' '(' assignment? ';' expr? ';' assignment? ')' stat    #ForStat
+    |   'const' type ID '=' expr ';'                                #ConstDecl
+    |   type ID ('=' expr)? ';'                                     #VarDecl
+    |   type ID '[' INT ']' ';'                                     #ArrayDecl
+    |   assignment ';'                                              #AssignStat
+    |   'print' '(' expr ')' ';'                                    #Print
+    |   '{' stat* '}'                                               #Block
     ;
 
 // MUDANÇA CRUCIAL AQUI:
