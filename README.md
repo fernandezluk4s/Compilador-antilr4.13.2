@@ -6,37 +6,73 @@ Este repositório contém a especificação da gramática para a linguagem de pr
 
 ---
 
-### 📜 Gramática da LinguagemA (EBNF)
+## 💻 Definição da Linguagem - LinguagemA
 
-A gramática a seguir define a sintaxe formal da LinguagemA em Notação de Backus-Naur Estendida (EBNF), refletindo a estrutura do arquivo `LinguagemA.g4`.
+A linguagem **LinguagemA** é uma linguagem de programação estruturada que suporta:
 
-* **Símbolos Usados no EBNF:**
-    * `::=` : Define a regra (é definido como)
-    * `|` : Alternativa (OU)
-    * `[ ... ]` : Opcional (zero ou uma vez)
-    * `{ ... }` : Repetição (zero ou mais vezes)
-    * `( ... )` : Agrupamento
-    * `'token'` : Símbolo Terminal (literal)
+* [cite_start]**Declaração de Variáveis e Constantes:** Incluindo tipos primitivos e arrays[cite: 3, 4, 5].
+* [cite_start]**Comandos de Saída:** Função `print`.
+* [cite_start]**Estruturas de Controle de Fluxo:** `if/then/else` [cite: 1][cite_start], `while` [cite: 2][cite_start], e `for`.
+* [cite_start]**Blocos de Código:** Delimitados por chaves `{}`.
+* [cite_start]**Expressões:** Abrangendo operações aritméticas, lógicas, relacionais, acesso a arrays e literais[cite: 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].
 
-#### Regras de Programa e Declarações
+### 📜 Gramática (EBNF)
+
+A seguir, a gramática da **LinguagemA** no formato EBNF, derivada do arquivo `LinguagemA.g4`.
 
 ```ebnf
-prog          ::= { stat } [cite: 1]
+grammar LinguagemA;
 
-stat          ::= 'if' '(' expr ')' 'then' stat [ 'else' stat ]             (* #IfStat *) [cite: 1, 2]
-                | 'while' '(' expr ')' 'do' stat                            (* #WhileStat *) [cite: 2]
-                | 'for' '(' [ assignment ] ';' [ expr ] ';' [ assignment ] ')' stat (* #ForStat *) [cite: 3]
-                | 'const' type ID '=' expr ';'                              (* #ConstDecl *) [cite: 3, 4]
-                | type ID [ '=' expr ] ';'                                  (* #VarDecl *) 
-                | type ID '[' INT ']' ';'                                   (* #ArrayDecl *) [cite: 5]
-                | assignment ';'                                            (* #AssignStat *) [cite: 5]
-                | 'print' '(' expr ')' ';'                                  (* #Print *) 
-                | '{' { stat } '}'                                          (* #Block *) [cite: 7]
-                ;
+prog:   stat+ ;
 
-assignment    ::= ID [ '[' expr ']' ] '=' expr 
+stat:   'if' '(' expr ')' 'then' stat ('else' stat)?  #IfStat
+    |   'while' '(' expr ')' 'do' stat                 #WhileStat
+    |   'for' '(' assignment? ';' expr? ';' assignment? ')' stat #ForStat
+    |   'const' type ID '=' expr ';'                   #ConstDecl
+    |   type ID ('=' expr)? ';'                        #VarDecl
+    |   type ID '[' INT ']' ';'                        #ArrayDecl
+    |   assignment ';'                                 #AssignStat
+    |   'print' '(' expr ')' ';'                       #Print
+    |   '{' stat* '}'                                  #Block
+    ;
 
-type          ::= 'int' | 'float' | 'bool' | 'string' [cite: 26]
+// MUDANÇA CRUCIAL AQUI:
+// Unificamos em uma regra só para o Java conseguir ler a.ID() e a.expr()
+assignment
+    :   ID ('[' expr ']')? '=' expr
+    ;
+
+expr:   MINUS expr                              #Negation
+    |   NOT expr                                #Not
+    |   expr op=POW expr                        #Power
+    |   expr op=(MUL|DIV|MOD) expr              #MulDivMod
+    |   expr op=(PLUS|MINUS) expr               #AddSub
+    |   expr op=(LE|GE|LT|GT) expr              #Relational
+    |   expr op=(EQ|NEQ) expr                   #Equality
+    |   expr op=AND expr                        #And
+    |   expr op=OR expr                         #Or
+    |   ID '[' expr ']'                         #ArrayAccess
+    |   ID                                      #Id
+    |   INT                                     #Int
+    |   FLOAT                                   #Float
+    |   TRUE                                    #BoolTrue
+    |   FALSE                                   #BoolFalse
+    |   'null'                                  #Null
+    |   '(' expr ')'                            #Parens
+    ;
+
+type:   'int' | 'float' | 'bool' | 'string';
+
+// Tokens
+MUL : '*'; DIV : '/'; MOD : '%'; PLUS : '+'; MINUS : '-'; POW : '^';
+EQ : '=='; NEQ : '!='; LE : '<='; GE : '>='; LT : '<'; GT : '>';
+AND : '&&'; OR : '||'; NOT : '!';
+TRUE : 'true'; FALSE : 'false';
+ID  :   [a-zA-Z_][a-zA-Z0-9_]* ;
+INT :   [0-9]+ ;
+FLOAT : [0-9]+ '.' [0-9]+ ;
+WS  :   [ \t\r\n]+ -> skip ;
+COMMENT : '//' .*? '\n' -> skip ;
 ```
 
 
