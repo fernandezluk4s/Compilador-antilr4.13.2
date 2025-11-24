@@ -4,8 +4,6 @@
 
 Este repositório contém a especificação da gramática para a linguagem de programação **LinguagemA**, criada usando a ferramenta de geração de *parsers* **ANTLR4** (ANother Tool for Language Recognition). A LinguagemA é uma linguagem simples com suporte para estruturas de controle básicas, declaração de variáveis e constantes, arrays, e expressões aritméticas e lógicas.
 
----
-
 ## 💻 Definição da Linguagem - LinguagemA
 
 A linguagem **LinguagemA** é uma linguagem de programação estruturada que suporta:
