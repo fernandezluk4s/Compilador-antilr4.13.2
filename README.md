@@ -38,9 +38,5 @@ assignment    ::= ID [ '[' expr ']' ] '=' expr
 
 type          ::= 'int' | 'float' | 'bool' | 'string' [cite: 26]
 ```
----
 
-**Lucas De Almeida Silva Sigolo Fernandes**
-**lukasigolo@gmail.com**
-**https://github.com/fernandezluk4s**
 
