@@ -1,0 +1,3 @@
+const int PI = 3;
+print(PI);
+PI = 4; // Isso deve quebrar o programa!

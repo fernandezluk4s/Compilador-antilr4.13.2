@@ -1,0 +1,2 @@
+int v[2];
+v[5] = 10; // O tamanho é 2, índice 5 não existe

@@ -1,0 +1,6 @@
+bool t = true;
+bool f = false;
+
+if (t && !f) then print(1); else print(0); // true AND true -> 1
+if (f || t) then print(1); else print(0);  // false OR true -> 1
+if (t && f) then print(1); else print(0);  // true AND false -> 0
