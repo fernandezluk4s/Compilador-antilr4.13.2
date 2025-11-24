@@ -37,7 +37,7 @@ stat          ::= 'if' '(' expr ')' 'then' stat [ 'else' stat ]             (* #
 assignment    ::= ID [ '[' expr ']' ] '=' expr 
 
 type          ::= 'int' | 'float' | 'bool' | 'string' [cite: 26]
-
+```
 ---
 
 **Lucas De Almeida Silva Sigolo Fernandes**
